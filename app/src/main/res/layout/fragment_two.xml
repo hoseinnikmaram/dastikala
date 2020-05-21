@@ -1,0 +1,49 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mode_background_when_selected"
+    android:id="@+id/ly_search"
+    tools:context="com.dastsaz.dastsaz.fragments.TwoFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="59dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="20dp">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/tx_search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.08"
+
+        android:src="@drawable/ic_search_black_18dp" />
+</LinearLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp"
+        android:id="@+id/swiprefreshsearch">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_recycle_search"
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

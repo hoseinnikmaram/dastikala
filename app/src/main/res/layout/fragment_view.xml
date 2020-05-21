@@ -1,0 +1,39 @@
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.dastsaz.dastsaz.fragments.viewFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mode_background_when_selected">
+
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/main_page"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/loading_icon_manage" android:id="@+id/loading"/>
+    <include layout="@layout/include_layout_mange_error" android:id="@+id/error"/>
+    <include layout="@layout/include_layout_mange_empty" android:id="@+id/empty"/>
+
+</LinearLayout>

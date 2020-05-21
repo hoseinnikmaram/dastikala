@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.dastsaz.dastsaz.ui.DialogEditPoster"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="vertical">
+
+
+
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="عنوان:"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_title_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:scrollbars="horizontal"
+
+                />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_descriptiion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="توضیحات:"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_description_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:scrollbars="horizontal"
+
+                />
+
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_phon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="شماره تلفن:"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_phone_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:scrollbars="horizontal"
+                android:inputType="number"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_sms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="شماره پیامک:"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_sms_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:scrollbars="horizontal"
+                android:inputType="number"
+                />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="قیمت:"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_price_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:scrollbars="horizontal"
+                android:inputType="number"
+                />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_edit_poster"
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="ویرایش"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

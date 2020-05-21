@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etx_verification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:inputType="number"
+            android:scrollbars="horizontal" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tx_view_verification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="105dp"
+            android:gravity="right"
+            android:text="کد تائید:"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:text="کد تائید به گوشی شما ارسال یا بعد از دو دقیقه با شما تماس گرفته خوهد شد"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="10sp" />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_send_verification"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:background="@color/colorPrimaryDark"
+
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="20dp">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="ارسال"
+    android:textColor="#ffff"
+    android:textSize="20sp"/>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
+
+
+

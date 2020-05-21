@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/mode_background_when_selected"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/Poster_create_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="56dp"
+        android:theme="@style/BaseTheme_Toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="vertical">
+
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/pic"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                >
+
+
+
+            <TextView
+                android:id="@+id/tx_view_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardview_dark_background"
+                android:paddingRight="7dp"
+                android:paddingTop="7dp"
+
+                android:gravity="right"
+                android:text="انتخاب عکس"
+                android:textSize="20sp" />
+
+
+
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="80dp"
+
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_defult"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"  />
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:scaleType="fitXY"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_defult"                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+            </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                >
+            <LinearLayout
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="80dp"
+                android:orientation="horizontal"
+                    android:layout_gravity="center"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img3"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_defult"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+
+                <ImageView
+                    android:id="@+id/img4"
+                    android:scaleType="fitXY"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+
+                    android:padding="10dp"
+                    android:src="@drawable/ic_defult"                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/group"
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="9dp"
+    android:layout_gravity="right"
+    android:gravity="right">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/btn_daste"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="80dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:onClick="OnClickDasteSelection"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/txt_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:text="انتخاب گروه"
+            android:textColor="#ffff"
+            android:textSize="20sp" />
+    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/tx_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+
+        android:gravity="right"
+        android:textColor="@color/colorAccent"
+        android:text=" * "
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tx_view_namedaste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+
+        android:gravity="right"
+        android:textColor="@color/cardview_dark_background"
+        android:text="گروه"
+        android:paddingRight="7dp"
+        android:textSize="20sp" />
+
+
+
+</LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/subgroup"
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="right"
+            android:gravity="right">
+            <android.support.v7.widget.CardView
+                android:id="@+id/btn_Sub_daste"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:onClick="OnClickSubDasteSelection"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/txt_subdaste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="انتخاب زیر گروه"
+                    android:textColor="#ffff"
+                    android:textSize="20sp" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tx_view_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+
+                android:gravity="right"
+                android:textColor="@color/colorAccent"
+                android:text="*"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tx_view_sub_daste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="زیر گروه"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:textColor="@color/cardview_dark_background"
+                />
+
+        </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/city"
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="right"
+            android:gravity="right">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/btn_city"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="45dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:onClick="OnClickLoctionSelection"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="انتخاب شهر"
+                    android:textColor="#ffff"
+                    android:textSize="20sp"
+                    android:id="@+id/txt_selcity"/>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+
+                android:gravity="right"
+                android:textColor="@color/colorAccent"
+                android:text="*"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tx_view_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="شهر"
+                android:textColor="@color/cardview_dark_background"
+                android:paddingRight="7dp"
+
+                />
+
+
+        </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="9dp"
+                    android:layout_gravity="top|right"
+                    android:gravity="right">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/btn_location"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:onClick="OnClickReigonSelection"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="انتخاب محل"
+                            android:textColor="#ffff"
+                            android:textSize="20sp"
+                            android:id="@+id/txt_location"/>
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+
+                        android:gravity="right"
+                        android:textColor="@color/colorAccent"
+                        android:text="*"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tx_view_loction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:gravity="right"
+                        android:textSize="20sp"
+                        android:text="محل"
+                        android:textColor="@color/cardview_dark_background"
+                        android:paddingRight="7dp"
+
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="top|right"
+            android:gravity="right">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:layout_gravity="center|top"
+                android:gravity="right|top"
+                android:scrollbars="horizontal"
+                android:layout_marginRight="23dp"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+
+                android:gravity="right"
+                android:textColor="@color/colorAccent"
+                android:text="*"
+                android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+               android:layout_gravity="center"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="عنوان"
+
+                android:paddingRight="7dp"
+
+                android:textColor="@color/cardview_dark_background"
+                />
+
+        </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="top|right"
+            android:gravity="right">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_description"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"                  android:layout_height="wrap_content"
+                android:enabled="true"
+                android:maxLines="15"
+                android:gravity="right|top"
+                android:scrollbars="horizontal"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+
+                android:gravity="right"
+                android:textColor="@color/colorAccent"
+                android:text="*"
+                android:textSize="20sp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_descriptiion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="توضیحات"
+                android:paddingRight="7dp"
+
+                android:textColor="@color/cardview_dark_background"
+                />
+
+        </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="2dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/cardview_light_background"
+            android:gravity="center"
+            app:cardBackgroundColor="@color/cardview_light_background"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="top|right"
+            android:gravity="right">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:scrollbars="horizontal"
+                android:layout_gravity="top"
+                android:gravity="right|top"
+
+                android:inputType="number"
+                />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_phon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="شماره تلفن"
+                android:paddingRight="7dp"
+
+                android:textColor="@color/cardview_dark_background"
+                />
+
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="2dp"
+                android:padding="5dp"
+
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="9dp"
+                android:layout_gravity="top|right"
+                android:gravity="right">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_sms"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:gravity="right|top"
+
+                android:scrollbars="horizontal"
+                android:inputType="number"
+                />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tx_view_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="right|top"
+                    android:textSize="20sp"
+                    android:text="شماره پیامک"
+                    android:paddingRight="7dp"
+
+                    android:textColor="@color/cardview_dark_background"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="2dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/cardview_light_background"
+            android:gravity="center"
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardCornerRadius="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="9dp"
+            android:layout_gravity="top|right"
+            android:gravity="right">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etx_price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="36dp"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:scrollbars="horizontal"
+                android:inputType="number"
+                android:gravity="right|top"
+
+                />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_view_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="قیمت"
+                android:paddingRight="7dp"
+                android:textColor="@color/cardview_dark_background"
+                />
+
+
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+

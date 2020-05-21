@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:orientation="vertical"
+
+    >
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+
+            <EditText
+                android:id="@+id/Etsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="جستجو"
+                android:inputType="text"
+                android:textColorLink="@android:color/background_light"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginVertical="50dp"
+        android:id="@+id/ry_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/default_toolbar"
+        android:layout_marginBottom="40dp"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
+
+
+
+</android.support.design.widget.CoordinatorLayout>

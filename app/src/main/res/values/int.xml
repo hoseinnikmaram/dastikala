@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="mode_happy">0x1F60A</integer>
+    <integer name="mode_love">0x1F60D</integer>
+    <integer name="mode_unhappy">0x1F61F</integer>
+</resources>

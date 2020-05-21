@@ -1,0 +1,90 @@
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.dastsaz.dastsaz.fragments.FourFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mode_background_when_selected">
+
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/main_page"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:background="#CCCCCC"
+        android:gravity="right">
+        <android.support.v7.widget.CardView
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#BFBFBF"
+            app:cardBackgroundColor="#BFBFBF"
+
+            android:layout_gravity="center">
+        <TextView
+            android:id="@+id/txt_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="1dp"
+            android:layout_gravity="center"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:text="همه ی شهرها"
+            android:textColor="#000000"
+            android:textSize="16dp" />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:paddingTop="3.5dp"
+            android:layout_gravity="center"
+            android:paddingBottom="3.5dp"
+            android:paddingRight="2dp"
+
+            android:src="@drawable/left"/>
+    <TextView
+        android:id="@+id/tx_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="تمام پیشنهادات"
+        android:textColor="#000000"
+        android:textSize="16dp" />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/loading_icon_manage" android:id="@+id/loading"/>
+    <include layout="@layout/include_layout_mange_error" android:id="@+id/error"/>
+    <include layout="@layout/include_layout_mange_empty" android:id="@+id/empty"/>
+
+</LinearLayout>

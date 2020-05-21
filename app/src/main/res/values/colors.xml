@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF4081</color>
+    <color name="colorPrimaryDark">#FF4081</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="mode_background">#9FA8DA</color>
+    <color name="mode_background_when_selected">#e8eaf6</color>
+    <color name="theme_color_highlight">#5b5b5b</color>
+    <color name="transparent">#00000000</color>
+    <color name="colorAccen">#c8e8ff</color>
+    <color name="bgBottomNavigation">#fe485a</color>
+
+</resources>

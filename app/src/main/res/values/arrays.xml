@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array  name="preference_values_city">
+        <item>همه ي شهر ها</item>
+        <item>شوشتر</item>
+        <item>اهواز</item>
+
+    </string-array>
+
+    <string-array  name="preference_values_city_insert">
+        <item>شوشتر</item>
+        <item>اهواز</item>
+
+    </string-array>
+
+    <string-array  name="preference_values_reigon_insert">
+        <item>کوی فرهنگیان</item>
+        <item>طالقانی</item>
+        <item>کیان پارس</item>
+
+    </string-array>
+
+    <string-array  name="preference_defult">
+        <item>همه ی شهر ها</item>
+        <item>شهر من</item>
+
+    </string-array>
+
+    <string-array  name="preference_values_group">
+        <item>خوراکی</item>
+
+
+    </string-array>
+
+    <string-array  name="preference_values_subgroup">
+        <item>کیک</item>
+        <item>کلوچه</item>
+
+
+    </string-array>
+    <array name="custom_colors">
+        <item>#F44336</item>
+        <item>#E91E63</item>
+        <item>#9C27B0</item>
+        <item>#673AB7</item>
+        <item>#3F51B5</item>
+        <item>#2196F3</item>
+    </array>
+
+</resources>

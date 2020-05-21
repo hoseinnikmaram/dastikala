@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginStart="3dp"
+    android:layout_marginTop="3dp"
+    android:background="@color/mode_background_when_selected"
+    android:clickable="false"
+    android:padding="0dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_light_background"
+        android:backgroundTint="@color/mode_background_when_selected">
+
+        <LinearLayout
+            android:id="@+id/imagelayout"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_margin="0.5dp"
+            android:layout_weight="0.35"
+            android:background="@color/cardview_light_background"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageViewPoster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/mode_background_when_selected"
+                app:srcCompat="@android:drawable/ic_menu_camera"
+                android:scaleType="fitXY"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentlayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.65"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_body"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.45"
+
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tx_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/cardview_light_background"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="19sp">
+
+                </android.support.v7.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mode_background_when_selected"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:background="@color/cardview_light_background"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layout_intime"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.25"
+
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tx_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.87"
+                        android:gravity="right|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="18sp">
+
+                    </android.support.v7.widget.AppCompatTextView>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imageView_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_weight="0.13"
+
+                        android:src="@drawable/ic_schedule_red_500_18dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mode_background_when_selected"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_location"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+
+                android:layout_weight="0.25"
+                android:background="@color/cardview_light_background"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layout_inlocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tx_location"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.87"
+                        android:gravity="right|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="18sp">
+
+                    </android.support.v7.widget.AppCompatTextView>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imageView_location"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_gravity="left"
+                        android:layout_weight="0.13"
+
+                        android:src="@drawable/ic_room_red_400_18dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/cardview_light_background"
+        android:id="@+id/ly_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_weight="0.85"
+    android:layout_height="match_parent"
+    >
+
+
+
+</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            >
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/im_edit"
+                android:layout_width="56dp"
+
+                android:layout_height="35dp"
+                android:background="@drawable/button_ripple_effect_circle"
+                android:padding="20dp"
+                android:onClick="OnClickEdit"
+                android:src="@drawable/ic_mode_edit_24dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:tooltipText="حذف کردن"/>
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/im_delete"
+                android:layout_width="56dp"
+                android:layout_height="35dp"
+                android:background="@drawable/button_ripple_effect_circle"
+                android:padding="20dp"
+
+                android:src="@drawable/ic_delete_24dp"
+                android:layout_marginLeft="20dp"
+                android:tooltipText="ویرایش کردن"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
