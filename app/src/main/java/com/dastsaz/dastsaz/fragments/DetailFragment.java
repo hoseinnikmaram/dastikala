@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.GravityEnum;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.dastsaz.dastsaz.R;
 import com.dastsaz.dastsaz.models.PosterModel;
 import com.dastsaz.dastsaz.utility.myClass;
 
 
 @SuppressLint("ValidFragment")
-public class OneFragment extends Fragment{
+public class DetailFragment extends Fragment{
 
     private TextView mTxtitle;
-    private TextView mTxdescription;
+    private AppCompatTextView mTxdescription;
     private TextView mTxloction;
     private TextView mTxphone;
     private TextView mTxsms;
@@ -49,7 +43,7 @@ public class OneFragment extends Fragment{
 
     private String sms;
     @SuppressLint("ValidFragment")
-    public OneFragment(PosterModel poster,String Datetime) {
+    public DetailFragment(PosterModel poster, String Datetime) {
         posterModel=poster;
         date=Datetime;
     }
@@ -65,9 +59,9 @@ public class OneFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_one, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        mTxdescription = (TextView) rootView.findViewById(R.id.tx_description);
+        mTxdescription = (AppCompatTextView) rootView.findViewById(R.id.tx_description);
         mTxloction = (TextView) rootView.findViewById(R.id.tx_loction);
         mTxtitle = (TextView) rootView.findViewById(R.id.tx_title);
         mTxsms = (TextView) rootView.findViewById(R.id.tx_sms);
@@ -93,8 +87,12 @@ public class OneFragment extends Fragment{
                     Toast.makeText(getActivity(), "شماره پیامک ثبت نشده است", Toast.LENGTH_SHORT).show();
 
                 }
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
-                        + sms)));
+
+                else {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
+                            + posterModel.sms)));
+                }
+
             }
         });
 
@@ -106,7 +104,8 @@ public class OneFragment extends Fragment{
                     Toast.makeText(getActivity(), "شماره تماس ثبت نشده است", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", posterModel.phone, null));
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:"+posterModel.phone));
                     startActivity(intent);
                 }
             }
@@ -138,9 +137,11 @@ public class OneFragment extends Fragment{
     public String convert_number(String number)
     {
 
-        return number.replace("1","١").replace("2","۲").replace("3","۳")
-                .replace("6","۶").replace("7","۷").replace("8","۸")
-                .replace("9","۹").replace("4","۴").replace("5","۵");
+        return number;
+
+               // .replace("1","١").replace("2","۲").replace("3","۳")
+              //  .replace("6","۶").replace("7","۷").replace("8","۸")
+               // .replace("9","۹").replace("4","۴").replace("5","۵");
 
 
 

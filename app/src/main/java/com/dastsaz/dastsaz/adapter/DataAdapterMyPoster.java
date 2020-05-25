@@ -69,7 +69,7 @@ protected Boolean visibleimgedit;
         PosterModel currentModel = mData.get(position);
         holder.mTxPosterBody.setText(currentModel.title);
         holder.mTxlocation.setText(currentModel.location_name);
-        String u=currentModel.src_pic;
+        String u=currentModel.src_pic+"";
 
         if (u.contains(",")){
 

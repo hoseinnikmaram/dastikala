@@ -137,42 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
             });
         }
 
-        AppCompatButton btn_id_city = (AppCompatButton) findViewById(R.id.btn_id_city);
-        if (btn_id_city != null) {
-            btn_id_city.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    builder = new MaterialDialog.Builder(SignUpActivity.this)
-                            .title("انتخاب شهر من")
-                            .itemsGravity(GravityEnum.END)
-
-                            //  .customView(R.layout.dialog_row, true)
-                            .buttonsGravity(GravityEnum.CENTER)
-                            .items(R.array.preference_values_city)
-                            .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                @Override
-                                public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                    /**
-                                     * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                                     * returning false here won't allow the newly selected radio button to actually be selected.
-                                     **/
-                                    mAppPreferenceTools.savedefultidcity(String.valueOf(which));
-
-                                    Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_LONG).show();
-
-                                    return true;
-                                }
-                            })
-
-
-                            .positiveText("انتخاب")
-                            .negativeText("بی خیال")
-                            .show();
-
-                }
-            });
-        }
     }
 
 

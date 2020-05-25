@@ -107,19 +107,7 @@
                             android:hint="ایمیل"
                             android:inputType="textEmailAddress"
                             android:id="@+id/etx_emailsignup"/>
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/btn_id_city"
-                            android:background="@color/colorAccent"
-                            android:layout_width="match_parent"
-                            android:layout_height="46dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_marginRight="@dimen/activity_horizontal_margin"
-                            android:layout_marginTop="30dp"
-                            android:text="شهر من"
-                            android:textSize="20sp"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/white" />
+
                         <android.support.v7.widget.AppCompatButton
                             android:id="@+id/btn_sign_up"
                             android:background="@color/colorAccent"

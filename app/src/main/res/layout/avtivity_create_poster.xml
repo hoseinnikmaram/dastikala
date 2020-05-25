@@ -229,20 +229,23 @@
                 app:cardCornerRadius="4dp">
 
         <LinearLayout
+            android:id="@+id/ly_sub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_margin="9dp"
             android:layout_gravity="right"
             android:gravity="right">
+
             <android.support.v7.widget.CardView
                 android:id="@+id/btn_Sub_daste"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="20dp"
+                android:layout_width="208dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:onClick="OnClickSubDasteSelection"
@@ -378,6 +381,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="9dp"
+                    android:id="@+id/ly_locat"
+                    android:visibility="gone"
                     android:layout_gravity="top|right"
                     android:gravity="right">
 
@@ -438,9 +443,9 @@
                 android:layout_marginRight="3dp"
                 android:layout_marginBottom="2dp"
                 android:padding="5dp"                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|top"
                 android:background="@color/cardview_light_background"
-                android:gravity="center"
+                android:gravity="center|top"
                 app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="4dp">
         <LinearLayout
@@ -453,40 +458,19 @@
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/etx_title"
                 android:layout_width="0dp"
+                style="@style/LoginSignUp8Input"
+                android:hint="*عنوان "
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"                android:layout_height="wrap_content"
                 android:enabled="true"
-                android:layout_gravity="center|top"
-                android:gravity="right|top"
+                android:layout_gravity="top"
+                android:gravity="top"
                 android:scrollbars="horizontal"
-                android:layout_marginRight="23dp"
 
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
 
-                android:gravity="right"
-                android:textColor="@color/colorAccent"
-                android:text="*"
-                android:textSize="20sp" />
-        <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tx_view_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-               android:layout_gravity="center"
-                android:gravity="right"
-                android:textSize="20sp"
-                android:text="عنوان"
 
-                android:paddingRight="7dp"
-
-                android:textColor="@color/cardview_dark_background"
-                />
 
         </LinearLayout>
 
@@ -516,35 +500,17 @@
                 android:id="@+id/etx_description"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"                  android:layout_height="wrap_content"
+                style="@style/LoginSignUp8Input"
+                android:hint="*توضیحات"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"                android:layout_height="wrap_content"
                 android:enabled="true"
                 android:maxLines="15"
                 android:gravity="right|top"
                 android:scrollbars="horizontal"
 
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
 
-                android:gravity="right"
-                android:textColor="@color/colorAccent"
-                android:text="*"
-                android:textSize="20sp" />
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tx_view_descriptiion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="right"
-                android:textSize="20sp"
-                android:text="توضیحات"
-                android:paddingRight="7dp"
-
-                android:textColor="@color/cardview_dark_background"
-                />
 
         </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -574,27 +540,17 @@
                 android:id="@+id/etx_phone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"                android:layout_height="wrap_content"
                 android:enabled="true"
                 android:scrollbars="horizontal"
                 android:layout_gravity="top"
                 android:gravity="right|top"
-
+                style="@style/LoginSignUp8Input"
+                android:hint="تلفن"
                 android:inputType="number"
                 />
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tx_view_phon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="right"
-                android:textSize="20sp"
-                android:text="شماره تلفن"
-                android:paddingRight="7dp"
 
-                android:textColor="@color/cardview_dark_background"
-                />
 
         </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -627,27 +583,16 @@
                 android:id="@+id/etx_sms"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"                android:layout_height="wrap_content"
                 android:enabled="true"
                 android:gravity="right|top"
-
+                style="@style/LoginSignUp8Input"
+                android:hint="شماره پیامک"
                 android:scrollbars="horizontal"
                 android:inputType="number"
                 />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tx_view_sms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="right|top"
-                    android:textSize="20sp"
-                    android:text="شماره پیامک"
-                    android:paddingRight="7dp"
-
-                    android:textColor="@color/cardview_dark_background"
-                    />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -676,32 +621,57 @@
                 android:id="@+id/etx_price"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="36dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_height="wrap_content"
                 android:enabled="true"
                 android:scrollbars="horizontal"
                 android:inputType="number"
                 android:gravity="right|top"
+                style="@style/LoginSignUp8Input"
+                android:hint="قیمت"
+                />
 
-                />
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tx_view_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="right"
-                android:textSize="20sp"
-                android:text="قیمت"
-                android:paddingRight="7dp"
-                android:textColor="@color/cardview_dark_background"
-                />
 
 
         </LinearLayout>
         </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="9dp"
+                android:layout_gravity="right"
+                android:gravity="right">
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/btn_send_poster"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:onClick="OnClickSendPosterSelection"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="ارسال آگهی"
+                        android:textColor="#ffff"
+                        android:textSize="20sp"
+                       />
+                </android.support.v7.widget.CardView>
+
+
+
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -44,8 +44,8 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private Toolbar toolbar;
     private FakeDataProvider provider;
     private Bundle args;
-    private AppCompatButton btn_cacke;
-    private AppCompatButton btn_coloche;
+    private AppCompatButton btn_mobile;
+    private AppCompatButton btn_laptop;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView title;
     private TextView city;
@@ -87,20 +87,37 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         }
         title.setText(NameGroup);
+        mRylist = (RecyclerView) rootView.findViewById(R.id.list_recycle_group);
+        mRylist.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+        mAdapter = new DataAdapterPoster(mRylist, getActivity().getBaseContext(), new DataAdapterPoster.DataEventHandler() {
+            @Override
+            public void onDetailData(String PosterId, String date, int position) {
+                Intent DetailIntent = new Intent(getActivity(), DetailPoster.class);
+                DetailIntent.putExtra("Date", date);
+
+                DetailIntent.putExtra("ID_KEY", PosterId);
+                startActivityForResult(DetailIntent, 7);
+            }
 
 
-        btn_cacke = (AppCompatButton) rootView.findViewById(R.id.btn_cacke);
-        btn_coloche = (AppCompatButton) rootView.findViewById(R.id.btn_koloche);
+        });
 
-        btn_cacke.setOnClickListener(new View.OnClickListener() {
+        btn_mobile = (AppCompatButton) rootView.findViewById(R.id.btn_mobile);
+        btn_laptop = (AppCompatButton) rootView.findViewById(R.id.btn_laptop);
+
+
+        if (IdInEditMode.equals("1")){
+
+
+        btn_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new SubDasteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("ID_Group", "1");
-                bundle.putString("Name_Group", "خوراکی ها");
+                bundle.putString("Name_Group", "دیجیتال");
                 bundle.putString("Sub_Group", "1");
-                bundle.putString("Sub_Name", "کیک");
+                bundle.putString("Sub_Name", "موبایل");
 
                 String backStateName = fragment.getClass().getName();
 
@@ -117,17 +134,16 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         });
 
-        myClass.textview_face(getActivity().getBaseContext(),"IRANSans",title,city);
 
-        btn_coloche.setOnClickListener(new View.OnClickListener() {
+        btn_laptop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new SubDasteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("ID_Group", "1");
-                bundle.putString("Name_Group", "خوراکی ها");
+                bundle.putString("Name_Group", "دیجتال");
                 bundle.putString("Sub_Group", "2");
-                bundle.putString("Sub_Name", "کلوچه");
+                bundle.putString("Sub_Name", "لپ تاپ");
 
                 String backStateName = fragment.getClass().getName();
 
@@ -146,36 +162,88 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
 
         //config recycler view
-        mRylist = (RecyclerView) rootView.findViewById(R.id.list_recycle_group);
-        mRylist.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        mAdapter = new DataAdapterPoster(mRylist,getActivity().getBaseContext(), new DataAdapterPoster.DataEventHandler() {
-            @Override
-            public void onDetailData(String PosterId,String date ,int position) {
-                Intent DetailIntent = new Intent(getActivity(), DetailPoster.class);
-                DetailIntent.putExtra("Date", date);
-
-                DetailIntent.putExtra("ID_KEY", PosterId);
-                startActivityForResult(DetailIntent, 7);
-            }
 
 
-        });
 
+
+    }
+
+
+        else if (IdInEditMode.equals("2")){
+            btn_mobile.setText("تلوزیون");
+            btn_laptop.setText("جاروبرقی");
+
+
+            btn_mobile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new SubDasteFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID_Group", "2");
+                    bundle.putString("Name_Group", "لوازم خانگی");
+                    bundle.putString("Sub_Group", "3");
+                    bundle.putString("Sub_Name", "تلوزیون");
+
+                    String backStateName = fragment.getClass().getName();
+
+                    fragment.setArguments(bundle);
+                    boolean fragmentPopped = getActivity().getSupportFragmentManager().popBackStackImmediate(backStateName, 0);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+
+                    if (!fragmentPopped) { //fragment not in back stack, create it.
+                        ft.replace(R.id.ly_daste, fragment);
+                        ft.addToBackStack(backStateName);
+                        ft.commit();
+                    }
+
+                }
+            });
+
+
+            btn_laptop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new SubDasteFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID_Group", "2");
+                    bundle.putString("Name_Group", "لوازم خانگی");
+                    bundle.putString("Sub_Group", "4");
+                    bundle.putString("Sub_Name", "جاروبرقی");
+
+                    String backStateName = fragment.getClass().getName();
+
+                    fragment.setArguments(bundle);
+                    boolean fragmentPopped = getActivity().getSupportFragmentManager().popBackStackImmediate(backStateName, 0);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+
+                    if (!fragmentPopped) { //fragment not in back stack, create it.
+                        ft.replace(R.id.ly_daste, fragment);
+                        ft.addToBackStack(backStateName);
+                        ft.commit();
+                    }
+
+                }
+            });
+
+        }
 
         mRylist.setAdapter(mAdapter);
         //get data in load
         provider = new FakeDataProvider();
 
         mTService = provider.getTService();
+
+
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
                                         getPosterFromServer();
 
                                     }
                                 }
         );
+
+        myClass.textview_face(getActivity().getBaseContext(), "IRANSans", title, city);
 
         return rootView;
 
@@ -183,11 +251,13 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
+
         getPosterFromServer();
 
     }
 
     private void getPosterFromServer() {
+
         Call<List<PosterModel>> call = mTService.getPosterbyGroupid(IdInEditMode, MainActivity.IdCity);
         call.enqueue(new Callback<List<PosterModel>>() {
             @Override
@@ -200,6 +270,8 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     swipeRefreshLayout.setRefreshing(false);
 
                 } else {
+                    swipeRefreshLayout.setRefreshing(false);
+
                     ErrorModel errorModel = ErrorUtils.parseError(response);
                     //  Toast.makeText(getActivity(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
                 }
@@ -207,6 +279,8 @@ public class dasteFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             @Override
             public void onFailure(Call<List<PosterModel>> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+
                 //occur when fail to deserialize || no network connection || server unavailable
                 // Toast.makeText(getActivity(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
             }

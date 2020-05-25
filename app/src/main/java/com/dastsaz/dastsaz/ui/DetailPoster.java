@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,12 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dastsaz.dastsaz.R;
-import com.dastsaz.dastsaz.fragments.OneFragment;
-import com.dastsaz.dastsaz.fragments.viewFragment;
+import com.dastsaz.dastsaz.fragments.DetailFragment;
+import com.dastsaz.dastsaz.fragments.CommentFragment;
 import com.dastsaz.dastsaz.helper.CustomViewPager;
 import com.dastsaz.dastsaz.helper.ViewManager;
 import com.dastsaz.dastsaz.models.ErrorModel;
@@ -37,11 +34,7 @@ import com.dastsaz.dastsaz.utility.AppPreferenceTools;
 import com.dastsaz.dastsaz.utility.ErrorUtils;
 import com.dastsaz.dastsaz.utility.slider;
 
-import com.glide.slider.library.Animations.DescriptionAnimation;
 import com.glide.slider.library.SliderLayout;
-import com.glide.slider.library.SliderTypes.BaseSliderView;
-import com.glide.slider.library.SliderTypes.TextSliderView;
-import com.glide.slider.library.Tricks.ViewPagerEx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,7 +226,7 @@ public void getPosterDetail(){
                 } else {
                     ErrorModel errorModel = ErrorUtils.parseError(response);
                     // Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getBaseContext(),"اتصال به اینترنت بررسی شود3",Toast.LENGTH_LONG).show();
+            //        Toast.makeText(getBaseContext(),"اتصال به اینترنت بررسی شود3",Toast.LENGTH_LONG).show();
 
                     mViewManager.error();
                 }
@@ -243,7 +236,7 @@ public void getPosterDetail(){
             public void onFailure(Call<PosterModel> call, Throwable t) {
                 //occur when fail to deserialize || no network connection || server unavailable
                 //  Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getBaseContext(),"اتصال به اینترنت بررسی شود4",Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getBaseContext(),"اتصال به اینترنت بررسی شود4",Toast.LENGTH_LONG).show();
 
                 mViewManager.error();
             }
@@ -258,7 +251,10 @@ public void getPosterDetail(){
 }
 
 
+    public void OnClickBack(View v){
 
+        onBackPressed();
+    }
     public void OnClicknomark(View v){
             mAppPreferenceTools.addFavorite(posterModel);
             imgnomark.setVisibility(View.GONE);
@@ -317,8 +313,8 @@ public void getPosterDetail(){
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new viewFragment(IdInEditMode), "نظرات");
-        adapter.addFragment(new OneFragment(posterModel,date), "جزئیات");
+        adapter.addFragment(new CommentFragment(IdInEditMode), "نظرات");
+        adapter.addFragment(new DetailFragment(posterModel,date), "جزئیات");
 
         viewPager.setAdapter(adapter);
     }

@@ -52,7 +52,7 @@ public class SmsVerification extends AppCompatActivity {
         ap=new AppPreferenceTools(this);
        phonenumber = ap.getphonenumber();
 
-        getVerfication();
+     //   getVerfication();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +112,7 @@ public class SmsVerification extends AppCompatActivity {
 
                  } else {
                      ErrorModel errorModel = ErrorUtils.parseError(response);
-                     Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                 //    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
                  }
              }
 

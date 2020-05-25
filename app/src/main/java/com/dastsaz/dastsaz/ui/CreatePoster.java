@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ import com.dastsaz.dastsaz.TApplication;
 import com.dastsaz.dastsaz.models.CityModel;
 import com.dastsaz.dastsaz.models.DasteModel;
 import com.dastsaz.dastsaz.models.ErrorModel;
+import com.dastsaz.dastsaz.models.LocationModel;
 import com.dastsaz.dastsaz.models.PosterModel;
 import com.dastsaz.dastsaz.models.Subdaste;
 import com.dastsaz.dastsaz.network.FakeDataProvider;
@@ -68,7 +70,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreatePoster extends AppCompatActivity {
-    private  int id_location=-2;
+    private static   int id_location=-2;
     private AppCompatEditText mETxtitle;
     private MaterialDialog builder;
 
@@ -94,7 +96,7 @@ public class CreatePoster extends AppCompatActivity {
     private int mg1,mg2,mg3,mg4=0;
     private String IdInEditMode;
     private FakeDataService mTService;
-
+    private String [] citys;
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -106,6 +108,12 @@ public class CreatePoster extends AppCompatActivity {
 
     private Bundle args;
     private TextView txt_location;
+    private String[] subs;
+    private String[] locations;
+    LinearLayout sub;
+    LinearLayout locate;
+    private int[] locations_id;
+    private int[] subs_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +129,8 @@ public class CreatePoster extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.Poster_create_toolbar);
             setSupportActionBar(toolbar);
+            sub = (LinearLayout) findViewById(R.id.ly_sub);
+            locate = (LinearLayout) findViewById(R.id.ly_locat);
 
             mETxdescription = (AppCompatEditText) findViewById(R.id.etx_description);
             mETxtitle = (AppCompatEditText) findViewById(R.id.etx_title);
@@ -451,103 +461,8 @@ public class CreatePoster extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_send) {
-            if (id_location!=-1 && mETxtitle.getText().toString().trim().length() > 0 && mETxdescription.getText().toString().trim().length() > 0 ) {
-                //create  Model
-                mProgressDialoginsert.setMessage("منتظر بمانید...");
-                mProgressDialoginsert.show();
-                String ui=mAppPreferenceTools.getUserId();
-                //assign  model values
-                String ic = String.valueOf(CityModel.idcity);
-                String ip = String.valueOf(DasteModel.idgroup);
-                String is = String.valueOf(Subdaste.idsub);
-                String lo =String.valueOf(id_location);
+            onBackPressed();
 
-                String p = String.valueOf(mETxprice.getText() + "");
-                String ph = String.valueOf(mETxphone.getText() + "");
-                String sm= String.valueOf(mETxsms.getText() + "");
-                String de =mETxdescription.getText().toString();
-                String ti =mETxtitle.getText().toString();
-
-                RequestBody iduser= RequestBody.create(MediaType.parse("text/plain"),ui );
-                mapbody.put("id_user",iduser);
-
-                RequestBody idcit= RequestBody.create(MediaType.parse("text/plain"),ic );
-                mapbody.put("id_city",idcit);
-
-                RequestBody idgroup = RequestBody.create(MediaType.parse("text/plain"),ip );
-                mapbody.put("id_group",idgroup);
-
-
-                RequestBody idsub = RequestBody.create(MediaType.parse("text/plain"), is);
-                mapbody.put("id_sub",idsub);
-
-                RequestBody Price = RequestBody.create(MediaType.parse("text/plain"),p );
-                mapbody.put("price",Price);
-
-                RequestBody Phone = RequestBody.create(MediaType.parse("text/plain"), ph);
-                mapbody.put("phone",Phone);
-
-                RequestBody Sms = RequestBody.create(MediaType.parse("text/plain"),sm );
-                mapbody.put("sms",Sms);
-
-                RequestBody Description = RequestBody.create(MediaType.parse("text/plain"),de );
-                mapbody.put("description",Description);
-
-                RequestBody Title = RequestBody.create(MediaType.parse("text/plain"),ti);
-                mapbody.put("title",Title);
-
-                RequestBody Location = RequestBody.create(MediaType.parse("text/plain"), lo);
-                mapbody.put("id_location",Location);
-
-
-
-
-
-
-
-
-                //create  generic class to send request to server
-                Call<PosterModel> call = mTService.createNewPosterbyupload("Bearer " + mAppPreferenceTools.getAccessToken(),mappic,mapbody);
-                //Async request
-                //NOTE: you should always send Async request since the sync request cause crash in your application
-                call.enqueue(new Callback<PosterModel>() {
-                    @Override
-                    public void onResponse(Call<PosterModel> call, Response<PosterModel> response) {
-                        if (response.isSuccessful()) {
-                            if (mProgressDialoginsert.isShowing()) {
-                                mProgressDialoginsert.dismiss();
-                            }
-
-                            Toast.makeText(getBaseContext(), "موفق در ایجاد آگهی", Toast.LENGTH_LONG).show();
-                            //finish this activity with result OK to refresh the data from server
-
-                            setResult(-1);
-                            finish();
-                        } else {
-                            if (mProgressDialoginsert.isShowing()) {
-                                mProgressDialoginsert.dismiss();
-                            }
-                            ErrorModel errorModel = ErrorUtils.parseError(response);
-                            Toast.makeText(getBaseContext(), "Error type is " +"exbody"+response.errorBody().toString()+ "exmassege"+response.message()+errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PosterModel> call, Throwable t) {
-                        //occur when fail to deserialize || no network connection || server unavailable
-                        if (mProgressDialoginsert.isShowing()) {
-                            mProgressDialoginsert.dismiss();
-                        }
-                        Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                });
-
-            }
-            else {
-                Toast.makeText(getBaseContext(), "بعضی از فیلد ها خالی هستند", Toast.LENGTH_LONG).show();
-
-            }
 
         } else if (id == android.R.id.home) {
             //back to main activity
@@ -556,39 +471,115 @@ public class CreatePoster extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void OnClickDasteSelection(View v){
-      //  startActivity(new Intent(getBaseContext(), DialogActivtyDaste.class));
-        builder = new MaterialDialog.Builder(this)
-                .title(R.string.titledaste)
-                .itemsGravity(GravityEnum.END)
 
-                //  .customView(R.layout.dialog_row, true)
-                .buttonsGravity(GravityEnum.CENTER)
-                .items(R.array.preference_values_group)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        if (text==null ) {
-                            return true;
+
+    public void OnClickSendPosterSelection(View v){
+
+        if (id_location!=-1 && mETxtitle.getText().toString().trim().length() > 0 && mETxdescription.getText().toString().trim().length() > 0 ) {
+            //create  Model
+            mProgressDialoginsert.setMessage("منتظر بمانید...");
+            mProgressDialoginsert.show();
+            String ui=mAppPreferenceTools.getUserId();
+            //assign  model values
+            String ic = String.valueOf(CityModel.idcity);
+            String ip = String.valueOf(DasteModel.idgroup);
+            String is = String.valueOf(Subdaste.idsub);
+            String lo =String.valueOf(id_location);
+
+            String p = String.valueOf(mETxprice.getText() + "");
+            String ph = String.valueOf(mETxphone.getText() + "");
+            String sm= String.valueOf(mETxsms.getText() + "");
+            String de =mETxdescription.getText().toString();
+            String ti =mETxtitle.getText().toString();
+
+            RequestBody iduser= RequestBody.create(MediaType.parse("text/plain"),ui );
+            mapbody.put("id_user",iduser);
+
+            RequestBody idcit= RequestBody.create(MediaType.parse("text/plain"),ic );
+            mapbody.put("id_city",idcit);
+
+            RequestBody idgroup = RequestBody.create(MediaType.parse("text/plain"),ip );
+            mapbody.put("id_group",idgroup);
+
+
+            RequestBody idsub = RequestBody.create(MediaType.parse("text/plain"), is);
+            mapbody.put("id_sub",idsub);
+
+            RequestBody Price = RequestBody.create(MediaType.parse("text/plain"),p );
+            mapbody.put("price",Price);
+
+            RequestBody Phone = RequestBody.create(MediaType.parse("text/plain"), ph);
+            mapbody.put("phone",Phone);
+
+            RequestBody Sms = RequestBody.create(MediaType.parse("text/plain"),sm );
+            mapbody.put("sms",Sms);
+
+            RequestBody Description = RequestBody.create(MediaType.parse("text/plain"),de );
+            mapbody.put("description",Description);
+
+            RequestBody Title = RequestBody.create(MediaType.parse("text/plain"),ti);
+            mapbody.put("title",Title);
+
+            RequestBody Location = RequestBody.create(MediaType.parse("text/plain"), lo);
+            mapbody.put("id_location",Location);
+
+
+
+
+
+
+
+
+            //create  generic class to send request to server
+            Call<PosterModel> call = mTService.createNewPosterbyupload("Bearer " + mAppPreferenceTools.getAccessToken(),mappic,mapbody);
+            //Async request
+            //NOTE: you should always send Async request since the sync request cause crash in your application
+            call.enqueue(new Callback<PosterModel>() {
+                @Override
+                public void onResponse(Call<PosterModel> call, Response<PosterModel> response) {
+                    if (response.isSuccessful()) {
+                        if (mProgressDialoginsert.isShowing()) {
+                            mProgressDialoginsert.dismiss();
                         }
 
-                            txt_group.setText(text.toString());
-                            DasteModel.idgroup = which + 1;
-                            Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "موفق در ایجاد آگهی", Toast.LENGTH_LONG).show();
+                        //finish this activity with result OK to refresh the data from server
 
-                        return true;
+                        setResult(-1);
+                        finish();
+                    } else {
+                        if (mProgressDialoginsert.isShowing()) {
+                            mProgressDialoginsert.dismiss();
+                        }
+                        ErrorModel errorModel = ErrorUtils.parseError(response);
+                        Toast.makeText(getBaseContext(), "Error type is " +"exbody"+response.errorBody().toString()+ "exmassege"+response.message()+errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
                     }
-                })
+                }
+
+                @Override
+                public void onFailure(Call<PosterModel> call, Throwable t) {
+                    //occur when fail to deserialize || no network connection || server unavailable
+                    if (mProgressDialoginsert.isShowing()) {
+                        mProgressDialoginsert.dismiss();
+                    }
+                    Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            });
+
+        }
+        else {
+            Toast.makeText(getBaseContext(), "بعضی از فیلد ها خالی هستند", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
 
 
-                .positiveText("انتخاب")
-                .negativeText("بی خیال")
-                .show();
 
+    public void OnClickDasteSelection(View v){
+      //  startActivity(new Intent(getBaseContext(), DialogActivtyDaste.class));
+     getDasteFromServer();
     }
 
 
@@ -596,115 +587,22 @@ public class CreatePoster extends AppCompatActivity {
 
 
     public void OnClickSubDasteSelection(View v){
+        getSubGroupFromServer();
      //   startActivity(new Intent(getBaseContext(), DialogActivtySubdaste.class));
-        builder = new MaterialDialog.Builder(this)
-                .title(R.string.titlesubdaste)
-                .itemsGravity(GravityEnum.END)
-
-                //  .customView(R.layout.dialog_row, true)
-                .buttonsGravity(GravityEnum.CENTER)
-                .items(R.array.preference_values_subgroup)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        if (text==null ) {
-                            return true;
-                        }
-                            txt_subdaste.setText(text.toString());
-                            Subdaste.idsub = which + 1;
-                            builder.setSelectedIndex(which);
-
-                            Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
-
-                        return true;
-                    }
-                })
-
-
-                .positiveText("انتخاب")
-                .negativeText("بی خیال")
-                .show();
 
     }
 
     public void OnClickLoctionSelection(View v){
        // startActivity(new Intent(getBaseContext(), DialogActivtyCity.class));
-        builder = new MaterialDialog.Builder(this)
-                .title(R.string.titlecity)
-                .itemsGravity(GravityEnum.END)
 
-                //  .customView(R.layout.dialog_row, true)
-                .buttonsGravity(GravityEnum.CENTER)
-                .items(R.array.preference_values_city_insert)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        if (text==null ) {
-                            return true;
-                        }
-
-                            txt_selcity.setText(text.toString());
-                            CityModel.idcity = which + 1;
-
-                            Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
-
-
-                        return true;
-                    }
-                })
-
-
-                .positiveText("انتخاب")
-                .negativeText("بی خیال")
-                .show();
-
+        getCityFromServer();
 
     }
 
 
     public void OnClickReigonSelection(View v){
         // startActivity(new Intent(getBaseContext(), DialogActivtyCity.class));
-        builder = new MaterialDialog.Builder(this)
-                .title(R.string.titlereigon)
-                .itemsGravity(GravityEnum.END)
-
-                //  .customView(R.layout.dialog_row, true)
-                .buttonsGravity(GravityEnum.CENTER)
-                .items(R.array.preference_values_reigon_insert)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        if (text==null ) {
-                            return true;
-                        }
-
-                        txt_location.setText(text.toString());
-                        id_location = which + 1;
-
-                        Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
-
-
-                        return true;
-                    }
-                })
-
-
-                .positiveText("انتخاب")
-                .negativeText("بی خیال")
-                .show();
-
+        getLocationServer();
 
     }
 
@@ -793,6 +691,277 @@ public class CreatePoster extends AppCompatActivity {
         void onGranted(int requestCode, String[] permissions);
 
         void onFailure(int requestCode, String[] permissions);
+    }
+
+
+    private void getCityFromServer() {
+        Call<List<CityModel>> call = mTService.getCitys();
+        call.enqueue(new Callback<List<CityModel>>() {
+            @Override
+            public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+
+
+                if (response.isSuccessful()) {
+                    //update the adapter data
+                    citys=new String[response.body().size()];
+                    for (int i=0 ; i<citys.length ; i++){
+                    citys[i]=response.body().get(i).cityname;}
+
+                    load_dialog_city();
+
+                    }
+
+                else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                //occur when fail to deserialize || no network connection || server unavailable
+                Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+        private void load_dialog_city(){
+
+            builder = new MaterialDialog.Builder(this)
+                    .title(R.string.titlecity)
+                    .itemsGravity(GravityEnum.END)
+
+                    //  .customView(R.layout.dialog_row, true)
+                    .buttonsGravity(GravityEnum.CENTER)
+                    .items(citys)
+                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                        @Override
+                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            /**
+                             * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                             * returning false here won't allow the newly selected radio button to actually be selected.
+                             **/
+                            if (text==null ) {
+                                return true;
+                            }
+
+                            txt_selcity.setText(text.toString());
+                            CityModel.idcity = String.valueOf((which + 1));
+
+                            Toast.makeText(getBaseContext(), text.toString()  , Toast.LENGTH_SHORT).show();
+
+                            locate.setVisibility(View.VISIBLE);
+                            getLocationServer();
+
+                            return true;
+                        }
+                    })
+
+
+                    .positiveText("انتخاب")
+                    .negativeText("بی خیال")
+                    .show();
+
+        }
+    String[] groups;
+    private void getDasteFromServer() {
+        Call<List<DasteModel>> call = mTService.getDastes();
+        call.enqueue(new Callback<List<DasteModel>>() {
+            @Override
+            public void onResponse(Call<List<DasteModel>> call, Response<List<DasteModel>> response) {
+
+                if (response.isSuccessful()) {
+                    //update the adapter data
+                     groups = new String[response.body().size()];
+                    for (int i=0 ; i<groups.length ; i++){
+                        groups[i]=response.body().get(i).groupname;}
+
+                    load_dialog_group();
+                } else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DasteModel>> call, Throwable t) {
+                //occur when fail to deserialize || no network connection || server unavailable
+                Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void load_dialog_group() {
+
+        builder = new MaterialDialog.Builder(this)
+                .title(R.string.titledaste)
+                .itemsGravity(GravityEnum.END)
+
+                //  .customView(R.layout.dialog_row, true)
+                .buttonsGravity(GravityEnum.CENTER)
+                .items(groups)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        if (text==null ) {
+                            return true;
+                        }
+
+                        txt_group.setText(text.toString());
+                        DasteModel.idgroup = which + 1;
+                        Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
+                       sub.setVisibility(View.VISIBLE);
+                            getSubGroupFromServer();
+                        return true;
+                    }
+                })
+
+
+                .positiveText("انتخاب")
+                .negativeText("بی خیال")
+                .show();
+
+    }
+
+
+    private void getSubGroupFromServer() {
+        Call<List<Subdaste>> call = mTService.getSubdaste(String.valueOf(DasteModel.idgroup));
+        call.enqueue(new Callback<List<Subdaste>>() {
+            @Override
+            public void onResponse(Call<List<Subdaste>> call, Response<List<Subdaste>> response) {
+
+                if (response.isSuccessful()) {
+                    //update the adapter data
+                    subs=new String[response.body().size()];
+                    subs_id=new int[response.body().size()];
+
+                    for (int i=0 ; i<response.body().size() ; i++){
+                        subs[i]=response.body().get(i).subname;
+                    subs_id[i]=response.body().get(i).id_sub;}
+
+                    load_dialog_Sub();
+                } else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Subdaste>> call, Throwable t) {
+                //occur when fail to deserialize || no network connection || server unavailable
+                Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+
+    private void load_dialog_Sub() {
+        builder = new MaterialDialog.Builder(this)
+                .title(R.string.titlesubdaste)
+                .itemsGravity(GravityEnum.END)
+                .cancelable(false)
+                .buttonsGravity(GravityEnum.CENTER)
+                .items(subs)
+
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        if (text==null ) {
+                            return true;
+                        }
+                        txt_subdaste.setText(text.toString());
+                        Subdaste.idsub = subs_id[which];
+
+                        Toast.makeText(getBaseContext(), text.toString() , Toast.LENGTH_SHORT).show();
+
+                        return true;
+                    }
+                })
+
+
+                .positiveText("انتخاب")
+                .show();
+
+
+    }
+
+
+    private void getLocationServer() {
+        Call<List<LocationModel>> call = mTService.getLocation(String.valueOf(CityModel.idcity));
+        call.enqueue(new Callback<List<LocationModel>>() {
+            @Override
+            public void onResponse(Call<List<LocationModel>> call, Response<List<LocationModel>> response) {
+
+                if (response.isSuccessful()) {
+                    //update the adapter data
+                    locations=new String[response.body().size()];
+                    locations_id=new int[response.body().size()];
+
+                    for (int i=0 ; i<response.body().size() ; i++){
+                        locations[i]=response.body().get(i).location_name;
+                        locations_id[i]=response.body().get(i).id_location;
+
+
+                    }
+
+                    load_dialog_loction();
+                } else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LocationModel>> call, Throwable t) {
+                //occur when fail to deserialize || no network connection || server unavailable
+                Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void load_dialog_loction() {
+
+        builder = new MaterialDialog.Builder(this)
+                .title(R.string.titlereigon)
+                .itemsGravity(GravityEnum.END)
+
+                .cancelable(false)
+                .buttonsGravity(GravityEnum.CENTER)
+                .items(locations)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        if (text==null ) {
+                            return true;
+                        }
+
+                        txt_location.setText(text.toString());
+                        id_location = locations_id[which];
+
+                        Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_SHORT).show();
+
+
+                        return true;
+                    }
+                })
+
+
+                .positiveText("انتخاب")
+                .show();
+
     }
 
 

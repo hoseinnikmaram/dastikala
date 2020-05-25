@@ -155,7 +155,7 @@ public class DataAdapterPoster extends RecyclerView.Adapter<RecyclerView.ViewHol
             DataViewHolder.mTxlocation.setText(currentModel.location_name);
             //  Picasso.with(this.mContext).load(currentModel.src_pic).transform(new CropCircleTransformation()).into(holder.mImageViewPoster);
 
-            Glide.with(mContext).load(currentModel.src_pic)
+            Glide.with(mContext).load(currentModel.src_pic )
                     .transition(withCrossFade())
                     .apply(options)
                     .thumbnail(0.5f)

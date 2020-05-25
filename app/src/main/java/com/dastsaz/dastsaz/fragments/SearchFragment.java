@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.dastsaz.dastsaz.R;
 import com.dastsaz.dastsaz.adapter.DataAdapterPoster;
@@ -24,9 +23,7 @@ import com.dastsaz.dastsaz.models.NowDateModel;
 import com.dastsaz.dastsaz.models.PosterModel;
 import com.dastsaz.dastsaz.network.FakeDataProvider;
 import com.dastsaz.dastsaz.network.FakeDataService;
-import com.dastsaz.dastsaz.ui.CustomViewIconTextTabsActivity;
 import com.dastsaz.dastsaz.ui.DetailPoster;
-import com.dastsaz.dastsaz.ui.DialogActivtyCity;
 import com.dastsaz.dastsaz.ui.MainActivity;
 import com.dastsaz.dastsaz.utility.AppPreferenceTools;
 import com.dastsaz.dastsaz.utility.ErrorUtils;
@@ -38,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class SearchFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private DataAdapterPoster mAdapter;
     private FakeDataService mTService;
     private RecyclerView mRylist;
@@ -48,7 +45,7 @@ public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     private SwipeRefreshLayout swipeRefreshLayout;
     private AppPreferenceTools mAppPreferenceTools;
 
-    public TwoFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -61,7 +58,7 @@ public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_two, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -88,15 +85,9 @@ public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         provider = new FakeDataProvider();
 
         mTService = provider.getTService();
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-                                        getPosterFromServer();
 
-                                    }
-                                }
-        );
+
+        getPosterFromServer();
 
 
         tx_search.addTextChangedListener(new TextWatcher() {
@@ -108,17 +99,16 @@ public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 0){
-                    getPosterFromServer();
 
-                }
-                else
-                getSearchPosterFromServer(tx_search.getText().toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                getSearchPosterFromServer(tx_search.getText().toString());
+                if(s.length() == 0){
 
+                }
             }
         });
 
@@ -127,13 +117,14 @@ public class TwoFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
     @Override
     public void onRefresh() {
-        getPosterFromServer();
+       // getPosterFromServer();
 
     }
 
 
 
     private void getSearchPosterFromServer(String s) {
+        mAdapter.clearDataPoster();
         Call<List<PosterModel>> call = mTService.getPosterBytitle(s);
         call.enqueue(new Callback<List<PosterModel>>() {
             @Override

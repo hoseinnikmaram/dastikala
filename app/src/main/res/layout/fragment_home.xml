@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.dastsaz.dastsaz.fragments.FourFragment"
+    tools:context="com.dastsaz.dastsaz.fragments.HomeFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/mode_background_when_selected">
 

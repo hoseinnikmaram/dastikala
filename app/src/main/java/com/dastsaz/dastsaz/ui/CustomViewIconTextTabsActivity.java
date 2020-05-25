@@ -1,12 +1,10 @@
 package com.dastsaz.dastsaz.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +13,7 @@ import android.view.MenuItem;
 import com.dastsaz.dastsaz.fragments.*;
 import com.dastsaz.dastsaz.R;
 import com.dastsaz.dastsaz.utility.AppPreferenceTools;
-import com.dastsaz.dastsaz.utility.Constants;
+
 import android.support.v4.app.FragmentTransaction;
 import com.dastsaz.dastsaz.helper.BottomNavigationBehavior;
 
@@ -38,10 +36,10 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view_icon_text_tabs);
-        F3 = new ThreeFragment();
+        F3 = new ListFragment();
 
-        F2 = new TwoFragment();
-        F4 = new FourFragment();
+        F2 = new SearchFragment();
+        F4 = new HomeFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_container, F4).commit();
         getSupportFragmentManager().beginTransaction().show(F4).commit();
         toolbar = (Toolbar) findViewById(R.id.toolbar);

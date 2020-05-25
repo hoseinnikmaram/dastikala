@@ -1,34 +1,36 @@
 package com.dastsaz.dastsaz.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dastsaz.dastsaz.R;
 import com.dastsaz.dastsaz.adapter.DataAdapterPoster;
-import com.dastsaz.dastsaz.adapter.DataAdaterViews;
 import com.dastsaz.dastsaz.helper.ViewManager;
 import com.dastsaz.dastsaz.models.DatePosterModel;
 import com.dastsaz.dastsaz.models.ErrorModel;
 import com.dastsaz.dastsaz.models.NowDateModel;
 import com.dastsaz.dastsaz.models.PosterModel;
-import com.dastsaz.dastsaz.models.ViewModel;
 import com.dastsaz.dastsaz.network.FakeDataProvider;
 import com.dastsaz.dastsaz.network.FakeDataService;
+import com.dastsaz.dastsaz.ui.DetailPoster;
 import com.dastsaz.dastsaz.ui.MainActivity;
 import com.dastsaz.dastsaz.ui.OnLoadMoreListener;
 import com.dastsaz.dastsaz.utility.AppPreferenceTools;
 import com.dastsaz.dastsaz.utility.ErrorUtils;
+import com.dastsaz.dastsaz.utility.myClass;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,26 +40,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-@SuppressLint("ValidFragment")
-public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ViewManager.CustomView{
-    private DataAdaterViews mAdapter;
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ViewManager.CustomView{
+    private DataAdapterPoster mAdapter;
     private FakeDataService mTService;
     private RecyclerView mRylist;
     private  Toolbar toolbar;
     private FakeDataProvider provider;
     public static SwipeRefreshLayout swipeRefreshLayoutFour;
     private AppPreferenceTools mAppPreferenceTools;
-
+    private TextView title;
+    private TextView city;
+    private MaterialDialog builder;
     int last,page=0;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     LinearLayoutManager mLayoutManager;
-    private List<ViewModel> mData = Collections.emptyList();
+    private List<PosterModel> mData = Collections.emptyList();
     public ViewManager mViewManager;
     private boolean stop=false;
-    private String idposter;
-    @SuppressLint("ValidFragment")
-    public viewFragment(String idInEditMode) {
-        idposter=idInEditMode;
+    public HomeFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -68,13 +69,15 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_view, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
 
         swipeRefreshLayoutFour = (SwipeRefreshLayout) rootView.findViewById(R.id.main_page);
-
+        title = (TextView) rootView.findViewById(R.id.tx_home);
+        city = (TextView) rootView.findViewById(R.id.txt_city);
         mAppPreferenceTools = new AppPreferenceTools(getActivity().getBaseContext());
-
+        city.setText(mAppPreferenceTools.gettxtcity());
+        myClass.textview_face(getActivity().getBaseContext(),"IRANSans",title,city);
 
         mViewManager = new ViewManager(getActivity());
         mViewManager.setLoading(rootView.findViewById(R.id.loading));
@@ -83,7 +86,6 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mViewManager.setEmpty(rootView.findViewById(R.id.empty));
         mViewManager.setCustumizeView(this);
 
-        mAppPreferenceTools = new AppPreferenceTools(getActivity().getBaseContext());
 
 
 
@@ -91,13 +93,15 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mRylist = (RecyclerView) rootView.findViewById(R.id.list_recycle);
         mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mRylist.setLayoutManager(mLayoutManager);
-        mAdapter = new DataAdaterViews(getActivity().getBaseContext(), new DataAdaterViews.DataEventHandler() {
-
+        mAdapter = new DataAdapterPoster(mRylist,getActivity().getBaseContext(), new DataAdapterPoster.DataEventHandler() {
             @Override
-            public void onDetailData(String CityId, int position) {
-
+            public void onDetailData(String PosterId,String date, int position) {
+                Intent DetailIntent = new Intent(getActivity(), DetailPoster.class);
+                DetailIntent.putExtra("Date", date);
+                DetailIntent.putExtra("ID_KEY", PosterId);
+                startActivityForResult(DetailIntent,7);
+                getActivity().overridePendingTransition(R.anim.splash, R.anim.splesh_out);
             }
-
 
 
         });
@@ -126,45 +130,30 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             swipeRefreshLayoutFour.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                getViewFromServer();
+                                                getPosterFromServer();
 
                                             }
                                         }
             );
 
 
-        mRylist.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy > 0) //check for scroll down
-                {
-                    visibleItemCount = mLayoutManager.getChildCount();
-                    totalItemCount = mLayoutManager.getItemCount();
-                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+            public void onLoadMore() {
+    if (stop && page>0){
+        Toast.makeText(getActivity(),"انتهای لیست",Toast.LENGTH_SHORT).show();
 
+    }
+    else {
+        getPosterFromServer();
 
-                    if( totalItemCount >=5){
-                        final int lastItem=pastVisiblesItems+visibleItemCount;
-                        if(lastItem == totalItemCount){
-                            if(last!=lastItem){
+    }
 
-                                last=lastItem;
-                                page = page +1;
-                                getViewFromServer();
-                            }
-                        }
-                    }
-
-                }
             }
         });
-
-
-
-
-
-
 
         return rootView;
 
@@ -172,30 +161,37 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
+        mAdapter.clearDataPoster();
+            page=0;
+            getPosterFromServer();
+
+
 
     }
 
 
 
-    private void getViewFromServer() {
+    private void getPosterFromServer() {
         swipeRefreshLayoutFour.setRefreshing(true);
 
         if (mAdapter.getItemCount() == 0)
             mViewManager.loading();
 
-        ViewModel viewmodel=new ViewModel();
-        viewmodel.poster_id=idposter;
-        viewmodel.page=page;
-
-        Call<List<ViewModel>> call = mTService.getviews(viewmodel);
-        call.enqueue(new Callback<List<ViewModel>>() {
+        DatePosterModel dapmodel=new DatePosterModel();
+        dapmodel.id_city=MainActivity.IdCity;
+        dapmodel.page=page;
+        Call<DatePosterModel> call = mTService.getPoster(dapmodel);
+        call.enqueue(new Callback<DatePosterModel>() {
             @Override
-            public void onResponse(Call<List<ViewModel>> call, Response<List<ViewModel>> response) {
+            public void onResponse(Call<DatePosterModel> call, Response<DatePosterModel> response) {
 
                 if (response.isSuccessful()) {
 
-
-                    if (page == 0  && response.body().size()==0) {
+                    if (response.body().p==null && page>0){
+                        stop=true;
+                        return;
+                    }
+                    if (page == 0  && response.body().current==null) {
                         mViewManager.empty();
                         return;
                     }
@@ -203,29 +199,38 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     mViewManager.showResult();
 
                     //update the adapter data
-                    mData=response.body();
+                    mData=response.body().p;
+                    NowDateModel.current = response.body().current.toString();
                     mAdapter.updateAdapterData(mData);
+                    mData.add(null);
 
-                    mAdapter.notifyDataSetChanged();
+                        mAdapter.notifyItemInserted(mData.size() - 1);
 
-                    swipeRefreshLayoutFour.setRefreshing(false);
+                            mData.remove(mData.size()-1);
+
+                            mAdapter.notifyItemRemoved(mData.size());
+                            mAdapter.notifyDataSetChanged();
+                            mAdapter.setLoaded();
+
+                            page = page + 1;
+                            swipeRefreshLayoutFour.setRefreshing(false);
 
                 } else {
                     ErrorModel errorModel = ErrorUtils.parseError(response);
-             //       Toast.makeText(getActivity(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getActivity(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
                     swipeRefreshLayoutFour.setRefreshing(false);
-                   Toast.makeText(getActivity().getBaseContext(),"اتصال به اینترنت بررسی شود3",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"اتصال به اینترنت بررسی شود3",Toast.LENGTH_LONG).show();
 
                         mViewManager.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ViewModel>> call, Throwable t) {
+            public void onFailure(Call<DatePosterModel> call, Throwable t) {
                 //occur when fail to deserialize || no network connection || server unavailable
                // Toast.makeText(getActivity(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
                 swipeRefreshLayoutFour.setRefreshing(false);
-                Toast.makeText(getActivity().getBaseContext(),"اتصال به اینترنت بررسی شود4",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"اتصال به اینترنت بررسی شود4",Toast.LENGTH_LONG).show();
                     mViewManager.error();
             }
         });
@@ -252,7 +257,7 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onClick(View v) {
 
                 mViewManager.loading();
-                getViewFromServer();
+                getPosterFromServer();
 
             }
         });
@@ -272,7 +277,7 @@ public class viewFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onClick(View v) {
                 mViewManager.loading();
 
-                getViewFromServer();
+                getPosterFromServer();
 
             }
         });

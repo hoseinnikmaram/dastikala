@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layoutDirection="rtl"
     >
 
 
@@ -53,9 +54,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:id="@+id/tool">
+
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content">
                     <ImageView
@@ -65,11 +74,13 @@
                         android:layout_height="30dp"
                         android:visibility="visible"
                         android:src="@drawable/ic_mark"/>
+
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="0dp"
                     android:layout_height="wrap_content">
                     <ImageView
@@ -84,15 +95,34 @@
                 <RelativeLayout
                     android:id="@+id/share"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:visibility="visible"
                         android:src="@drawable/ic_share"/>
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:id="@+id/btn_back"
+                        android:onClick="OnClickBack"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:visibility="visible"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_back"/>
+
+
+                </RelativeLayout>
+
+                </LinearLayout>
+
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>

@@ -7,6 +7,7 @@ import com.dastsaz.dastsaz.models.AuthenticationResponseModel;
 import com.dastsaz.dastsaz.models.CityModel;
 import com.dastsaz.dastsaz.models.DasteModel;
 import com.dastsaz.dastsaz.models.DatePosterModel;
+import com.dastsaz.dastsaz.models.LocationModel;
 import com.dastsaz.dastsaz.models.NowDateModel;
 import com.dastsaz.dastsaz.models.PictureModel;
 import com.dastsaz.dastsaz.models.SignInRequestModel;
@@ -64,13 +65,17 @@ public interface FakeDataService {
     @GET("city/index")
     Call<List<CityModel>> getCitys();
 
+    @GET("location/index")
+    Call<List<LocationModel>> getLocations();
+
     @GET("daste/index")
     Call<List<DasteModel>> getDastes();
 
-    @GET("subdaste/index")
-    Call<List<Subdaste>> getSubdaste();
+    @GET("subdaste_by_groupid/{idgroup}")
+   Call<List<Subdaste>> getSubdaste(@Path("idgroup") String idgroup);
 
-
+    @GET("location_by_cityid/{idcity}")
+    Call<List<LocationModel>> getLocation(@Path("idcity") String idcity);
 
     @GET("picturebyid/{id}")
     Call<List<PictureModel>> getPicturebyid(@Path("id") String posterid);

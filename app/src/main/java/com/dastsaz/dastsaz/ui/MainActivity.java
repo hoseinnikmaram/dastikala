@@ -16,9 +16,7 @@ import android.view.Gravity;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -31,14 +29,25 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dastsaz.dastsaz.R;
-import com.dastsaz.dastsaz.fragments.FourFragment;
-import com.dastsaz.dastsaz.fragments.ThreeFragment;
-import com.dastsaz.dastsaz.fragments.TwoFragment;
+import com.dastsaz.dastsaz.fragments.HomeFragment;
+import com.dastsaz.dastsaz.fragments.ListFragment;
+import com.dastsaz.dastsaz.fragments.SearchFragment;
 import com.dastsaz.dastsaz.helper.BottomNavigationBehavior;
 import com.dastsaz.dastsaz.helper.CustomTypefaceSpan;
+import com.dastsaz.dastsaz.models.CityModel;
+import com.dastsaz.dastsaz.models.ErrorModel;
+import com.dastsaz.dastsaz.network.FakeDataProvider;
+import com.dastsaz.dastsaz.network.FakeDataService;
 import com.dastsaz.dastsaz.utility.AppPreferenceTools;
 import com.dastsaz.dastsaz.utility.Constants;
+import com.dastsaz.dastsaz.utility.ErrorUtils;
 import com.dastsaz.dastsaz.utility.myClass;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,18 +66,21 @@ public class MainActivity extends AppCompatActivity
     private TextView title;
     private TextView add;
     private MaterialDialog builder;
-
+    String[] citys;
+    FakeDataService mTService;
     private AppPreferenceTools mAppPreferenceTools;
+    private String[] citys_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        F3 = new ThreeFragment();
+        F3 = new ListFragment();
 
-        F2 = new TwoFragment();
-        F4 = new FourFragment();
+        F2 = new SearchFragment();
+        F4 = new HomeFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_container, F4).commit();
         getSupportFragmentManager().beginTransaction().show(F4).commit();
 
@@ -81,6 +93,10 @@ public class MainActivity extends AppCompatActivity
         mAppPreferenceTools = new AppPreferenceTools(this);
         IdCity = mAppPreferenceTools.getidcity();
 
+        //first create new instant of FakeDataProvider
+        FakeDataProvider provider = new FakeDataProvider();
+        //get the FakeDataService interface to call API routes
+        mTService = provider.getTService();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -265,39 +281,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(myposter);
 
         } else if (id == R.id.nav_city) {
-            builder = new MaterialDialog.Builder(this)
-                    .title(R.string.titlecity)
-                    .itemsGravity(GravityEnum.END)
-
-                    //  .customView(R.layout.dialog_row, true)
-                    .buttonsGravity(GravityEnum.CENTER)
-                    .items(R.array.preference_values_city)
-                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                        @Override
-                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            /**
-                             * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                             * returning false here won't allow the newly selected radio button to actually be selected.
-                             **/
-                            mAppPreferenceTools.saveidcity(String.valueOf(which),text.toString());
-
-                            Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_LONG).show();
-                         //   onDestroy();
-                         //   finish();
-                         //   overridePendingTransition(0, 0);
-                         //   startActivity(getIntent());
-                          //  overridePendingTransition(0, 0);
-                            Intent refresh = new Intent(getBaseContext(), MainActivity.class);
-                            startActivity(refresh);
-                            finish();
-                            return true;
-                        }
-                    })
-
-
-                    .positiveText("انتخاب")
-                    .negativeText("بی خیال")
-                    .show();
+            getCityFromServer();
 
         } else if (id == R.id.nav_mark) {
             Intent markposter = new Intent(getBaseContext(), MarkActivity.class);
@@ -321,5 +305,80 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void getCityFromServer() {
+        Call<List<CityModel>> call = mTService.getCitys();
+        call.enqueue(new Callback<List<CityModel>>() {
+            @Override
+            public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+
+
+                if (response.isSuccessful()) {
+                    //update the adapter data
+                    citys = new String[response.body().size()];
+                    citys_id=new String[response.body().size()];
+
+
+                    for (int i=0 ; i<response.body().size() ; i++){
+
+                        citys[i]=response.body().get(i).cityname;
+                        citys_id[i]= String.valueOf(response.body().get(i).id_city);
+
+                    }
+                    load_dialog_city();
+
+                }
+
+                else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                //occur when fail to deserialize || no network connection || server unavailable
+                Toast.makeText(getBaseContext(), "Fail it >> " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void load_dialog_city(){
+
+        builder = new MaterialDialog.Builder(this)
+                .title(R.string.titlecity)
+                .itemsGravity(GravityEnum.END)
+
+                .buttonsGravity(GravityEnum.CENTER)
+                .items(citys)
+
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+
+
+
+                        mAppPreferenceTools.saveidcity(citys_id[which],text.toString());
+
+                        Toast.makeText(getBaseContext(), text.toString(), Toast.LENGTH_LONG).show();
+
+                        Intent refresh = new Intent(getBaseContext(), MainActivity.class);
+                        startActivity(refresh);
+                        finish();
+
+
+                        return true;
+                    }
+                })
+
+
+                .positiveText("انتخاب")
+                .negativeText("بی خیال")
+                .show();
+
+    }
 
 }

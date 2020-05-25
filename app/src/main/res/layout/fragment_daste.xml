@@ -41,15 +41,16 @@
                 android:paddingRight="2dp"
 
                 android:src="@drawable/left"/>
+
             <TextView
+                android:id="@+id/tx_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="3dp"
                 android:layout_gravity="right"
                 android:paddingTop="3dp"
+                android:paddingRight="3dp"
                 android:paddingBottom="3dp"
-                android:text="خوراکی"
-                android:id="@+id/tx_group"
+                android:text="دیجیتال"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 
@@ -72,18 +73,17 @@ android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_cacke"
+        android:id="@+id/btn_mobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="کیک" />
+        android:text="موبایل" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_koloche"
+        android:id="@+id/btn_laptop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="کلوچه" />
+        android:text="لپ تاپ" />
 
 
     <android.support.v7.widget.RecyclerView

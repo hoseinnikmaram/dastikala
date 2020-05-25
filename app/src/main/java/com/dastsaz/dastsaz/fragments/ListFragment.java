@@ -1,26 +1,22 @@
 package com.dastsaz.dastsaz.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dastsaz.dastsaz.R;
-import com.dastsaz.dastsaz.ui.DetailPoster;
-import com.dastsaz.dastsaz.ui.DialogActivtyDaste;
-import android.support.v4.app.FragmentManager;
+
 import android.widget.LinearLayout;
 
 
 
-public class ThreeFragment extends Fragment{
+public class ListFragment extends Fragment{
     private LinearLayout mLyAction;
-
-    public ThreeFragment() {
+    private LinearLayout mLyLavazem;
+    public ListFragment() {
         // Required empty public constructor
     }
 
@@ -36,16 +32,16 @@ public class ThreeFragment extends Fragment{
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-         View rootView= inflater.inflate(R.layout.fragment_three, container, false);
+         View rootView= inflater.inflate(R.layout.fragment_list, container, false);
 
-        mLyAction = (LinearLayout) rootView.findViewById(R.id.ly_food);
+        mLyAction = (LinearLayout) rootView.findViewById(R.id.ly_digital);
         mLyAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment= new dasteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("ID_Group", "1");
-                bundle.putString("Name_Group", "خوراکی ها");
+                bundle.putString("Name_Group", "دیجیتال");
                 String backStateName = fragment.getClass().getName();
 
                 fragment.setArguments(bundle);
@@ -60,21 +56,37 @@ public class ThreeFragment extends Fragment{
 
 
 
-               // getActivity().getSupportFragmentManager().beginTransaction().add(R.id.ly_groop, fragment).addToBackStack(backStateName).commit();
-
-//                startActivity(new Intent(getActivity().getBaseContext(), fragment.getClass()));
-          //      getActivity().getSupportFragmentManager().beginTransaction().(fragment).commit();
-
-
-
-
-
-
             }
         });
 
+
+
+        mLyLavazem = (LinearLayout) rootView.findViewById(R.id.ly_lavazem);
+        mLyLavazem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new dasteFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("ID_Group", "2");
+                bundle.putString("Name_Group", "لوازم خانگی");
+                String backStateName = fragment.getClass().getName();
+
+                fragment.setArguments(bundle);
+                boolean fragmentPopped = getActivity().getSupportFragmentManager().popBackStackImmediate(backStateName, 0);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+
+                if (!fragmentPopped) { //fragment not in back stack, create it.
+                    ft.replace(R.id.ly_groop, fragment);
+                    ft.addToBackStack(backStateName);
+                    ft.commit();
+                }
+            }
+            });
+
+
         return rootView;
     }
+
 
 
 

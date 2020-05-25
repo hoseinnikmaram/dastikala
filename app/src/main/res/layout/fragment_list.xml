@@ -8,7 +8,7 @@
     android:layout_marginLeft="1dp"
     android:layout_marginRight="1dp"
     android:background="@color/mode_background_when_selected"
-    tools:context="com.dastsaz.dastsaz.fragments.ThreeFragment"
+    tools:context="com.dastsaz.dastsaz.fragments.ListFragment"
     android:layout_centerInParent="true">
 <android.support.v4.widget.NestedScrollView
 
@@ -23,8 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mode_background_when_selected"
-        android:isScrollContainer="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.atahani.retrofit_sample.ui.ListActivity"
         android:baselineAligned="false">
 
@@ -38,7 +36,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
@@ -48,7 +46,7 @@
                 android:paddingTop="2dp"
                 tools:background="@color/mode_background_when_selected">
 
-                <include layout="@layout/ic_food" />
+                <include layout="@layout/ic_digital" />
 
             </LinearLayout>
 
@@ -65,7 +63,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
@@ -76,8 +74,8 @@
                 tools:background="@color/mode_background_when_selected"
                 >
 
-                <include layout="@layout/ic_cloth"
-                    android:visibility="invisible"/>
+                <include layout="@layout/ic_lavazem"
+                    />
 
             </LinearLayout>
 
@@ -106,7 +104,7 @@
                 tools:background="@color/mode_background_when_selected"
                 >
 
-                <include layout="@layout/ic_food"
+                <include layout="@layout/ic_digital"
                     android:visibility="gone"/>
 
             </LinearLayout>

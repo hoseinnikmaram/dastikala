@@ -5,7 +5,7 @@ package com.dastsaz.dastsaz.models;
  */
 
 public class CityModel {
-    public static int idcity;
+    public static String idcity;
     public int id_city;
     public String cityname;
 }

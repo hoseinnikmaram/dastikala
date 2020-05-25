@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_centerInParent="true"
-    android:background="@color/mode_background_when_selected"
 
-    tools:context="com.dastsaz.dastsaz.fragments.OneFragment">
+    tools:context="com.dastsaz.dastsaz.fragments.DetailFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -195,30 +194,32 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:id="@+id/ly_dec"
                 android:layout_height="match_parent"
-                android:paddingLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:layout_gravity="right|center"
                 android:gravity="center|right">
-                <TextView
-                    android:id="@+id/tx_description"
-                    android:layout_width="wrap_content"
-                    android:maxLines="10"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:scrollbars="horizontal"
-                    android:layout_margin="6dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
 
-                    android:textSize="17sp"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tx_description"
+                    android:layout_width="319dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:enabled="true"
+                    android:paddingLeft="30dp"
+                    android:gravity="center"
+                    android:layoutDirection="rtl"
+                    android:maxLines="10"
+
                     android:textColor="@color/cardview_dark_background"
+                    android:textSize="17sp"
 
                     />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"></LinearLayout>
+                    android:layout_weight="0.01"></LinearLayout>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tx_view_descriptiion"
@@ -435,12 +436,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+
                     android:layout_gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_sms"
-                        android:onClick="OnClickSms"
 
                         android:layout_marginRight="6dp"
                         android:paddingTop="8dp"

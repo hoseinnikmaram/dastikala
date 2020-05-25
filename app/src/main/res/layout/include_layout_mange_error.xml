@@ -16,37 +16,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:textSize="30sp"
-            android:id="@+id/ops"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Error!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/ops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="خطا!"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:id="@+id/text"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Network is not available"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="اینترنت در دسترس نمی باشد"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:background="@color/bgBottomNavigation"
-            android:layout_marginTop="10dp"
-            android:id="@+id/btn"
-            android:text="Retry"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            <Button
+                android:id="@+id/btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/bgBottomNavigation"
+                android:text="تلاش مجدد"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -21,11 +21,8 @@
 
     </string-array>
 
-    <string-array  name="preference_defult">
-        <item>همه ی شهر ها</item>
-        <item>شهر من</item>
 
-    </string-array>
+
 
     <string-array  name="preference_values_group">
         <item>خوراکی</item>

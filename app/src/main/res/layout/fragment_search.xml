@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@color/mode_background_when_selected"
     android:id="@+id/ly_search"
-    tools:context="com.dastsaz.dastsaz.fragments.TwoFragment">
+    tools:context="com.dastsaz.dastsaz.fragments.SearchFragment">
 
 <LinearLayout
     android:layout_width="match_parent"
